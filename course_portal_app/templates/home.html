@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+      integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"
+    />
+    <link rel="stylesheet" href="/static/css/all.min.css" />
+    <link rel="stylesheet" href="/static/css/font.css" />
+    <link rel="stylesheet" href="/static/css/jquery.modal.min.css" />
+    <link rel="stylesheet" href="/static/css/style.css" />
+    <script src="/static/js/jquery3.1.0.min.js"></script>
+    <script src="/static/js/jquery.modal.min.js"></script>
+    <style type="text/css">
+      .header {
+        margin: 0;
+        padding: 10px;
+        color: #fff;
+        font-size: 17px;
+        width: 100%;
+        text-align: center;
+        background: -webkit-gradient(
+          linear,
+          left bottom,
+          left top,
+          color-stop(0, #1e3d47),
+          color-stop(1, #2e5764)
+        );
+      }
+    </style>
+  </head>
+
+  <body>
+    {% include 'layouts/header.html' %}
+    <!--registration form-->
+    {% if user.is_authenticated %}
+    <h1>Logged in {{user.email}}</h1>
+    {% else %}
+    <h1>Please log in</h1>
+    {% endif %}
+    <div id="register" class="modal custome_modal">
+      <div class="contact_form">
+        <h2 class="header">Hello there, <span>Signup here!</span></h2>
+        <form method="POST" action="" class="form-box"> 
+        <div class="contact_input_">
+          <span  class="iconstyle"><i class="fas fa-user-alt"></i></span>
+          <p>Your Full Name</p>
+          <input type="text" class="form_input" />
+        </div>
+        <div class="contact_input_">
+          <span class="iconstyle"><i class="fas fa-envelope"></i></span>
+          <p>Your Email Address</p>
+          <input type="text" class="form_input" />
+        </div>
+        <div class="contact_input_">
+          <span  class="iconstyle"><i class="fa fa-key"></i></span>
+          <p>Password</p>
+          <input type="text" class="form_input" id="password" />
+        </div>
+        <div class="contact_input_" >
+          
+          <input type="text" class="form_input" id="confirm_password"/>
+          <span  class="iconstyle"><i class="fa fa-key"></i></span>
+          <p>Confirm Password</p>
+          <div dangerouslySetInnerHTML={__html: data.text} id="message" class="flexx">
+            </div>
+          </div>
+        <div class="mb-1 mt-4 col-12 col-md-8 mx-auto">
+          <button type="submit" class="btn btn-block btn-success text-uppercase">
+            SignUp
+          </button>
+        </div>
+        </form>
+      </div>
+      <hr class="my-4" />
+
+      <div class="text-center mb-2">
+        Already have an Account ? &nbsp;&nbsp;
+        <a href="#login"  class="open-modal register-link">
+          Login
+        </a>
+      </div>
+      <a href="#" rel="modal:close" class="close_modal">
+        <i class="fas fa-times-circle"></i>
+      </a>
+    </div>
+
+    <!--login form-->
+    <div id="login" class="modal custome_modal">
+        <div class="contact_form">
+          <h2 class="header">Welcome Back, <span>Login here</span></h2>
+      <form method="POST" action="" class="form-box"> 
+          <div class="contact_input_">
+            <span class="iconstyle"><i class="fas fa-envelope"></i></span>
+            <p>Your Email Address</p>
+            <input type="text" class="form_input" />
+          </div>
+          <div class="contact_input_">
+            <span  class="iconstyle"><i class="fa fa-key"></i></span>
+            <p>Your Password</p>
+            <input type="password" class="form_input" />
+          </div>
+          <div class="mb-3 mt-3">
+            <div class="custom-control custom-checkbox" >
+              <input
+                type="checkbox"
+                class="custom-control-input"
+                id="cb1"
+                name=""
+                checked
+              />
+              <label class="custom-control-label" for="cb1">Remember me</label>
+            </div>
+          </div>
+
+          <div class="mb-3 col-12 col-md-8 mx-auto">
+            <button type="submit" class="btn btn-block btn-primary text-uppercase">
+              Login
+            </button>
+          </div>
+
+          <div class="text-right">
+            <a href="#forgotPassword" class="open-modal forget-link">
+              Forget Password?
+            </a>
+          </div>
+          <div class="mb-4">
+            <hr data-content="OR" class="hr-text" />
+          </div>
+          <div class="col-12 col-md-8 mx-auto">
+            <a href="#" class="btn btn-google btn-user btn-block">
+              <i class="fab fa-google fa-fw"></i> Login with Google
+            </a>
+          </div>
+        </div>
+        <hr class="my-4" />
+
+        <div class="text-center mb-2">
+          Don't have an account?
+          <a href="#register" class="open-modal register-link">
+            Register here
+          </a>
+        </div>
+        <a href="#" rel="modal:close" class="close_modal">
+          <i class="fas fa-times-circle"></i>
+        </a>
+      </form>
+    </div>
+
+    <!--Forgot password form-->
+    <div id="forgotPassword" class="modal custome_modal">
+      <div class="contact_form">
+        <h2 class="header">Forgot <span>Password</span></h2>
+        <p class="password_info">
+          Please enter you emain below, we will send you the password
+        </p>
+        <form method="POST" action="" class="form-box"> 
+          <div class="contact_input_" style="margin-bottom: 50px;">
+            <span class="iconstyle"><i class="fas fa-envelope"></i></span>
+            <p>Your Email Address</p>
+            <input type="text" class="form_input" />
+          </div>
+          <div class="mb-2 mt-3 col-12 col-md-8 mx-auto">
+            <button type="submit" class="btn btn-success btn-block text-uppercase ">
+              Submit
+            </button>
+          </div>
+        </form>
+      </div>
+      <a href="#" rel="modal:close" class="close_modal">
+        <i class="fas fa-times-circle"></i>
+      </a>
+      <a href="#login" class="open-modal forgot_password"> Cancel? </a>
+    </div>
+    <script>
+      $(document).ready(function () {
+        $("a.open-modal").click(function () {
+          $(this).modal({
+            fadeDuration: 250,
+            showClose: false,
+          });
+          return false;
+        });
+        //for input animation
+        $(".contact_form .contact_input_").on(
+          "focusin",
+          ".form_input",
+          function () {
+            $(this)
+              .parent(".contact_input_")
+              .children("p,span")
+              .addClass("colorgreeen");
+          }
+        );
+        $(".contact_form .contact_input_").on(
+          "focusout",
+          ".form_input",
+          function () {
+            $(this)
+              .parent(".contact_input_")
+              .children("p,span")
+              .css("color", "rgba(0,0,0,.5)")
+              .removeClass("colorgreen");
+          }
+        );
+        $(".contact_form .contact_input_").on(
+          "focusin",
+          ".form_input",
+          function () {
+            $(this)
+              .parent(".contact_input_")
+              .children("p,span")
+              .addClass("pushedUp")
+              .css("color", "rgba(0,0,0,.5)");
+            let inputValue = $(this).val();
+            if (inputValue.length <= 0) {
+              $(this)
+                .parent(".contact_input_")
+                .children("p,span")
+                .css("color", "rgba(0,0,0,.5)");
+            }
+          }
+        );
+        $(".contact_form .contact_input_").on(
+          "focusout",
+          ".form_input",
+          function () {
+            let inputValue = $(this).val();
+            if (inputValue.length <= 0) {
+              $(this)
+                .parent(".contact_input_")
+                .children("p,span")
+                .removeClass("pushedUp")
+                .css("color", "red");
+            }
+          }
+        );
+        $(".info_item_, .forgot_password").click(function () {
+          $(".form_input").val("");
+          $(".contact_input_")
+            .children("p,span")
+            .removeClass("pushedUp")
+            .css("color", "rgba(0,0,0,.5)");
+        });
+      });
+      $("#custom-close").modal({
+        closeClass: "icon-remove",
+        closeText: "!",
+      });
+      $('#password, #confirm_password').on('keyup', function () {
+       if($('#password').val()=="" && $('#confirm_password').val()== ""){
+        $('#message').html("");
+       } 
+  else if ($('#password').val() == $('#confirm_password').val()) {
+    $('#message').html('<i class="fas fa-check-circle" style="color:darkgreen"></i>');
+  } else 
+    $('#message').html('<i class="fas fa-times-circle" style="color:red"></i>');
+});
+    </script>
+    <script src="/static/js/all.min.js"></script>
+  </body>
+</html>
